@@ -53,9 +53,6 @@ let selectedYear = "2020";
 const yearButtonsContainer = document.getElementById('yearButtons');
 
 
-
-
-
 function setActiveButton(year) {
   const buttons = yearButtonsContainer.querySelectorAll('button');
   buttons.forEach(btn => btn.classList.toggle('active', btn.textContent === year));
@@ -81,6 +78,35 @@ function createYearButtons() {
     yearButtonsContainer.appendChild(btn);
   });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const readMoreLinks = document.querySelectorAll(".read-more");
+  const modals = document.querySelectorAll(".modal");
+  const closeButtons = document.querySelectorAll(".close-button");
+
+  readMoreLinks.forEach((link, index) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      modals[index].style.display = "block";
+    });
+  });
+
+  closeButtons.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      modals[index].style.display = "none";
+    });
+  });
+
+  // Stäng modalen om användaren klickar utanför modalinnehållet
+  window.addEventListener("click", (event) => {
+    modals.forEach((modal) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
+});
+
 
 async function calculateWaterPerPerson(year) {
   const popQuery = structuredClone(basePopQuery);
