@@ -527,7 +527,4 @@ function drawPieChart(dataObject) {
   chart.draw(data, options);
 }
 
-// Ladda Google Charts
-google.charts.load('current', { 'packages': ['corechart'] });
 
-document.getElementById("formModal").style.display = "none";
