@@ -185,7 +185,7 @@ async function displayWaterHouseholdDataOnMap(year) {
   margin: { t: 10, b: 10, l: 10, r: 10 },
   font: {
     family: 'M PLUS 1p, sans-serif',
-    size: 12,
+    size: 11,
     color: '#333',
   },
   paper_bgcolor: '#f1f2f1',
@@ -218,7 +218,7 @@ createYearButtons();
 updateMap(selectedYear);
 
 
-
+//LINJEDIAGRAM
 async function fetchNationalWaterUsageOverTime() {
   const xValues = []; // År
   const yValues = []; // Genomsnittligt liter/person
@@ -272,31 +272,55 @@ async function drawNationalWaterUsageLineChart() {
 
 const layout = {
   xaxis: {
-    title: "År",
-    tickfont: { size: 14, color: '#495057' },
+    title: {
+      text: 'År',
+      font: { size: 12, color: '#495057' },
+      standoff: 20,
+    },
+    tickfont: { size: 12, color: '#495057' },
     showgrid: false,
     showline: true,
     linecolor: '#ced4da'
   },
+
   yaxis: {
-    title: 'Liter per person',
-    titlefont: { size: 18, color: '#1e2b39' },
-    tickfont: { size: 14, color: '#495057' },
+    showline: true,
     zeroline: false,
     gridcolor: 'rgba(0,0,0,0.05)',
-    showline: true,
-    linecolor: '#ced4da'
+    tickfont: { size: 12, color: '#495057' },
+    linecolor: '#ced4da',
+    title: ''  // Tom titel eftersom vi använder annotation istället
   },
+
+  annotations: [
+    {
+      xref: 'paper',
+      yref: 'paper',
+      x: 0,      // Justera placeringen om det behövs
+      y: 1.03,
+      text: 'Liter/person',
+      showarrow: false,
+      font: {
+        size: 12,
+        color: '#1e2b39',
+        family: 'M PLUS 1p, sans-serif'
+      },
+      textangle: 0,  // Horisontell text
+      xanchor: 'center',
+      yanchor: 'middle'
+    }
+  ],
+
+  margin: { t: 100, b: 80, l: 110, r: 30 },  // Ökad vänstermarginal så annotationen inte klipps bort
+
   plot_bgcolor: '#f1f2f1',
   paper_bgcolor: '#f1f2f1',
+
   font: {
     family: 'M PLUS 1p, sans-serif',
-    color: '#1e2b39'
+    color: '#1e1e1e'
   },
-  margin: { t: 100, b: 80, l: 70, r: 30 },
-  hovermode: 'x unified',
 
-  // 👇 NYTT
   hoverlabel: {
     bgcolor: 'rgba(27, 74, 95, 0.9)',
     bordercolor: '#1b4a5f',
@@ -309,8 +333,6 @@ const layout = {
     namelength: -1
   }
 };
-
-
   Plotly.newPlot('lineChart', [trace], layout);
 }
 

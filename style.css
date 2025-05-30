@@ -15,15 +15,14 @@
     --btn-focus: #162528 ;
 }
 
-body {
-  margin: 0;
-  background-color: #fbfcfb;
-  font-size: 20px;
-}
 
+
+
+
+/* GRUNDINSTÄLLNINGAR */
 html {
   scroll-behavior: smooth;
-}
+} 
 
 html, body {
   background-image: url("./img/water-for-all-bg.jpg");
@@ -33,6 +32,12 @@ html, body {
   width: 100%;
   overflow-x: hidden;
 }
+
+
+
+
+
+/* MENY */
 
 .top-bar {
   box-sizing: border-box;
@@ -72,6 +77,12 @@ html, body {
 .desktop-menu a:hover {
   color: #00ccff;
 }
+
+
+
+
+
+/* HAMBURGER-MENY */
 
 .hamburger {
   display: none;
@@ -124,12 +135,17 @@ html, body {
   font-weight: bold;
 }
 
-.content {
+
+
+
+
+ /* WATER-LÄNKEN */
+
+ .content {
   max-width: 700px;
   margin: 8rem auto 6rem auto;
   padding: 0 1rem;
 }
-
 .info-card-2 {
   background-color: var(--forest-green-opacity);
   color: var(--white);
@@ -163,14 +179,24 @@ html, body {
   color: #d0e8ff;
 }
 
+
+
+
+
+ /* HERO */
+ 
 .hero {
-  position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrerar vertikalt */
+  position: relative; /* Behålls om du har en absolut bakgrund */
+  z-index: 1;
 }
 
-.hero-bg {
+/* .hero-bg {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -179,28 +205,20 @@ html, body {
   left: 0;
   z-index: 1;
 }
+ */ 
+ 
 
-.hero-content {
-  position: relative;
-  z-index: 2;
-  color: var(--white);
-  top: 20vw;
-  transform: translateY(-50%);
-}
+
 
 .hero-content h1 {
   font-size: 8vw;
   text-align: right;
-  padding-right: 5vw;
-  white-space: nowrap;
   padding: 0 5vw;
+  white-space: nowrap;
   line-height: 1;
+  color: var(--white);
 }
-
 .hero-info-box {
-  position: absolute;
-  top:23%;
-  left: 5%;
   background-color: var(--forest-green-opacity);
   color: var(--white);
   max-width: 33vw;
@@ -208,7 +226,10 @@ html, body {
   border-radius: 10px;
   font-size: 1rem;
   z-index: 5;
+  margin-top: -25rem;
+  margin-left: 5vw;
 }
+
 
 .info-box-content {
   max-width: 90%;
@@ -216,8 +237,8 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  
 }
+
 
 .hero-info-box h2 {
   font-size: 3rem;
@@ -230,27 +251,24 @@ html, body {
 }
 
 
-.stats-cards-section {
+/* .stats-cards-section {
   padding: 4rem 0;
   text-align: center;
   color: var(--white);
-}
+} */
 
 .stats-cards {
-  position: absolute;
-  top: 78%;
-  left: 10%;
   display: flex;
   flex-wrap: nowrap;
   gap: 3rem;
-  justify-content: left;
+  justify-content: center;
   z-index: 3;
   width: 100%;
+  margin-top: -15rem;
 }
 
 .card {
-  padding: 1.5rem;
-  border-radius: 10px;
+  padding: 5rem;
   color: var(--white);
   width: 260px;
   text-align: center;
@@ -262,13 +280,19 @@ html, body {
   font-size: 2rem;
 }
 
-.card p {
+/* .card p {
   margin: 0;
   font-size: 1.1rem;
-}
+} */
+
+
+
+
+
+/* FOOTER */
 
 .site-footer {
-  width: 100vw;
+  width: 100%;
   background-color: var(--forest-green-opacity);
   color: var(--white);
   text-align: center;
@@ -277,10 +301,6 @@ html, body {
   position: relative;
   left: 0;
   margin: 0;
-}
-
-.site-footer p {
-  font-size: 14px;
 }
 
 .footer-dropdown {
@@ -342,6 +362,12 @@ html, body {
   display: block;
 }
 
+
+
+
+
+/* KARTA */
+
 #waterHouseholdStatistics {
   width: 70%;
   height: 60vh;
@@ -386,7 +412,7 @@ html, body {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  justify-content: left;
+  justify-content: flex-start;
   margin-top: 0.6rem;
 }
 
@@ -424,6 +450,12 @@ html, body {
   cursor: default;
 }
 
+
+
+
+
+/* LINJEDIAGRAM */
+
 .line-chart {
   display: flex;
   flex-direction: row;
@@ -441,7 +473,7 @@ html, body {
 .line-info {
   flex: 1 1 300px;
   max-width: 400px;
-  margin-right: 40px;
+  margin-right: 2rem;
 }
 
 .line-display {
@@ -449,33 +481,11 @@ html, body {
   min-width: 300px;
 }
 
-#lineChart {
-  flex: 1 1 600px;
-  min-width: 300px;
-  width: 90%;
-  height: 60vh;
-  min-height: 400px;
 
-}
 
-.map-container h2,
-.line-container h2,
-.form-container h2,
-.text-section h2 {
-  font-size: 1.8rem;
-  color: var(--black); 
-  margin-bottom: 12px;
-  font-weight: 600;
-}
 
-.map-container p,
-.line-container p,
-.form-container p,
-.text-section p {
-  font-size: 1.05rem;
-  color: var(--black);
-  margin-bottom: -2rem; 
-}
+
+/* CARDSEN LÄNGST NER */
 
 .card-container {
   display: flex;
@@ -488,15 +498,15 @@ html, body {
   height: 30vh;
 }
 
-.info-card:first-child {
+/* .info-card:first-child {
   position: relative;
-}
+} */
 
-.card-container .card:nth-child(1) { display: block; }
+/* .card-container .card:nth-child(1) { display: block; }
 .card-container .card:nth-child(2) { display: block; }
-
 .card-container .card:nth-child(3) { display: none; }
-
+ */
+ 
 .info-card {
   position: relative;
   display: flex;
@@ -510,10 +520,11 @@ html, body {
   max-width: 33.3333%;
 }
 
-.info-card > * {
+/* .info-card > * {
   flex: 1;
 }
-
+ */
+ 
 .water-video {
   width: 100%;
   height: 100%;
@@ -547,7 +558,7 @@ html, body {
 .gg6 p {
   padding: 0;
   margin: 0;
-  font-size: 12px;
+/*   font-size: 12px; */
   text-align: left;
 }
 
@@ -559,14 +570,13 @@ html, body {
   box-sizing: border-box;
   color: white;
   height: 100%;
-  box-sizing: border-box;
 }
 
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
+} */
 
 .read-more {
   align-self: flex-end;
@@ -576,6 +586,52 @@ html, body {
   font-size: 12px;
 }
 
+.icon-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 80px;
+  max-width: 120px;
+}
+
+.icon-item img {
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 0.5rem;
+}
+
+.icon-item h4 {
+  font-size: 16px;
+  margin-bottom: 0.2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.icon-item p {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  line-height: 1.3;
+  margin-bottom: 0.2rem;
+  color: white;
+  font-weight: 500;
+}
+
+
+
+
+
+/* MODAL LÄS MER*/
 .modal {
   display: none;
   position: fixed;
@@ -620,6 +676,11 @@ html, body {
   transform: scale(1.2);
 }
 
+
+
+
+
+/* ?????*/
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -631,46 +692,11 @@ html, body {
   }
 }
 
-.icon-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
 
-.icon-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  flex: 1;
-  min-width: 80px;
-  max-width: 120px;
-}
 
-.icon-item img {
-  width: 5rem;
-  height: 5rem;
-  margin-bottom: 0.5rem;
-}
 
-.icon-item h4 {
-  font-size: 16px;
-  margin-bottom: 0.2rem;
-  margin: 0;
-  padding: 0;
-}
 
-.icon-item p {
-  font-size: 16px;
-  margin: 0;
-  padding: 0;
-  line-height: 1.3;
-  margin-bottom: 0.2rem;
-  color: white;
-  font-weight: 500;
-}
+/* KNAPP FÖR ATT ÖPPNA FORMULÄR */
 
 .open-form-button {
   display: block;
@@ -687,11 +713,16 @@ html, body {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
- .open-form-button:hover:hover {
+ .open-form-button:hover {
   background-color: var(--btn-hoover);
   transform: translateY(-1px);
 }
 
+
+
+
+
+/* FORMULÄR*/
 .modal {
   display: none; 
   position: fixed;
@@ -810,25 +841,20 @@ form#waterForm button:focus-visible {
 
 #resultModal .form-container {
   max-width: 1000px;
-  margin: 5 auto;
+  margin: 5% auto;
 }
 
+
+
+
+
+/* MEDIA QUERY 640 PX */
+
 @media (max-width: 640px) {
+  
+  /* NAVIGATION */
   .desktop-menu a {
     display: none;
-  }
-
-  header {
-    padding: 1rem;
-    box-sizing: border-box;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
-  html, body {
-    overflow-x: hidden;
-    background-position: center -30rem;
   }
 
   .hamburger {
@@ -852,6 +878,24 @@ form#waterForm button:focus-visible {
     margin: 0.5rem 0;
   }
 
+  header {
+    padding: 1rem;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  html, body {
+    overflow-x: hidden;
+    background-position: center -30rem;
+  }
+
+
+
+
+
+  /* HERO-OMRÅDET */
   .hero {
     display: flex;
     flex-direction: column;
@@ -867,7 +911,7 @@ form#waterForm button:focus-visible {
 
   .hero-content h1 {
     position: relative;
-    top: -5rem;
+    top: -25rem;
     font-size: 5rem;
     text-align: center;
   }
@@ -878,8 +922,8 @@ form#waterForm button:focus-visible {
 
   .hero-info-box {
     position: relative;
-    top: 4rem;
-    left: 50%;
+    top: -4rem;
+    left: 57%;
     transform: translate(-50%);
     text-align: center;
     width: 100%;
@@ -903,24 +947,29 @@ form#waterForm button:focus-visible {
     margin: 1rem auto;
   }
 
-   .open-form-button {
-    width: 30%;
+  .open-form-button {
+    width: 80%;
+    max-width: 300px;
     font-size: 1rem;
-    margin: 0 auto;
-    margin-top: 1rem;
+    margin: 1rem auto 0;
   }
 
-.stats-cards {
-  position: absolute;
-  top: 50rem; 
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 90%; 
-  gap: 1rem;
-}
+
+
+
+
+  /* STATISTIKKORT */
+  .stats-cards {
+    position: absolute;
+    top: 55rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+    gap: 1rem;
+  }
 
   .card {
     width: 90%;
@@ -936,32 +985,40 @@ form#waterForm button:focus-visible {
     font-size: 0.9rem;
   }
 
+
+
+
+
+  /* KARTA OCH GRAFER */
   .map {
     position: relative;
-    top: 7rem; 
+    top: -15rem;
     left: 50%;
     transform: translate(-50%);
     text-align: left;
     width: 100%;
     min-height: 900px;
     padding: 4rem 1rem;
-    border-radius: 0px;
+    border-radius: 0;
   }
 
   .line-chart-section {
     position: relative;
-    top: 17rem;
+    top: -15rem;
   }
 
   .line-chart {
-    border-radius: 0px;
-    min-height: 800px;
+    border-radius: 0;
+    min-height: 750px;
     padding: 4rem 1rem;
+    
   }
 
   .line-display {
     position: absolute;
-    top: 11rem;
+    top: 15rem;
+    left: -4%;
+    height: 5px;
   }
 
   .map-section h2,
@@ -978,11 +1035,15 @@ form#waterForm button:focus-visible {
 
   .map-display {
     position: absolute;
-    top: 20rem; 
+    top: 22rem;
     left: 4%;
     height: 5px;
   }
 
+
+
+
+  /* FORMULÄR */
   .form-container {
     width: 95%;
     padding: 20px;
@@ -990,7 +1051,7 @@ form#waterForm button:focus-visible {
   }
 
   form#waterForm {
-    padding: 0rem 1rem;
+    padding: 0 1rem;
     gap: 1rem;
   }
 
@@ -1007,39 +1068,50 @@ form#waterForm button:focus-visible {
     max-width: 100%;
   }
 
-  .card-container {
-    flex-direction: column;
-    height: 100vh;
-    flex-wrap: wrap;
-}
 
-.info-card {
+
+
+
+
+  /* INFO-KORT */
+  .card-container {
+    position: relative;
+    top:-15rem;
+    flex-direction: column;
+    height: 78vh;
+    flex-wrap: wrap;
+  }
+
+  .info-card {
     flex: none;
     width: 100%;
     height: auto;
     max-height: none;
     max-width: 100%;
     position: relative;
-}
+  }
 
-.info-card:nth-child(2) .wash-info {
+  .info-card:nth-child(2) .wash-info {
     height: auto;
     padding: 7vw;
     align-items: center;
-}
+  }
 
-.info-card:nth-child(3) h1 {
+  .info-card:nth-child(3) h1 {
     display: none;
-}
+  }
 
-.info-card:nth-child(3) .gg6 {
-    /* display: flex; */
-    /* justify-content: center; */
+  .info-card:nth-child(3) .gg6 {
     height: auto;
     padding: 7vw;
     align-items: center;
-}
+  }
 
+
+
+
+
+  /* IKONLISTA */
   .icon-list {
     flex-direction: row;
     justify-content: space-around;
@@ -1048,10 +1120,4 @@ form#waterForm button:focus-visible {
   .icon-item {
     max-width: 100px;
   }
-
-
-
-/*   .text-section {
-    position: relative;
-  }*/
-} 
+}
