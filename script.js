@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
   readMoreLinks.forEach((link, index) => {
     link.addEventListener("click", (event) => {
       event.preventDefault();
-      modals[index].style.display = "block";
+      modals[index].style.display = "flex";
     });
   });
 
@@ -191,7 +191,7 @@ async function displayWaterHouseholdDataOnMap(year) {
   paper_bgcolor: '#f1f2f1',
   plot_bgcolor: '#f1f2f1',
 
-  // 👇 NYTT
+ 
   hoverlabel: {
     bgcolor: 'rgba(27, 74, 95, 0.9)',
     bordercolor: '#1b4a5f',
@@ -333,7 +333,9 @@ const layout = {
     namelength: -1
   }
 };
-  Plotly.newPlot('lineChart', [trace], layout);
+  const config = { responsive: true };
+  Plotly.newPlot('lineChart', [trace], layout, config);
+
 }
 
 drawNationalWaterUsageLineChart();
@@ -342,6 +344,8 @@ drawNationalWaterUsageLineChart();
 // FORMULÄR
 document.getElementById('waterForm').addEventListener('submit', function(event) {
   event.preventDefault();
+
+
 
   const form = event.target;
 
@@ -386,14 +390,14 @@ document.getElementById('waterForm').addEventListener('submit', function(event) 
   const totalUsage = showerUsage + toiletUsage + tapUsage + handwashUsage + dishwasherUsage + washingUsage;
   const yearlyUsage = totalUsage * 365;
 
-  // 💬 Visa textresultat
+  // Visa textresultat
   const resultDiv = document.getElementById('result');
   resultDiv.innerHTML = `
     <h3>Din uppskattade dagliga vattenförbrukning per person är ca <strong>${totalUsage.toFixed(1)} liter</strong>.<br>
     Det motsvarar ungefär <strong>${yearlyUsage.toFixed(0)} liter per år</strong>.</h3>
   `;
 
-  // 📊 Cirkeldiagramdata
+  // Cirkeldiagramdata
   const values = [showerUsage, toiletUsage, tapUsage, handwashUsage, dishwasherUsage, washingUsage];
   const labels = ['Dusch', 'Toalett', 'Kran', 'Disk för hand', 'Diskmaskin', 'Tvätt'];
   const valueLabels = labels.map((label, i) => `${label}: ${values[i].toFixed(1)} liter`);
@@ -412,9 +416,9 @@ document.getElementById('waterForm').addEventListener('submit', function(event) 
   }];
 
   const layout = {
-    height: 400,
-    width: 650,
-    margin: { t: 0, b: 0, l: 0, r: 10 },
+    height: 200,
+    width: 450,
+    margin: { t: 10, b: 10, l: 60, r: 60 }, // ge plats åt text på sidorna
     showlegend: false,
     paper_bgcolor: '#f1f2f1',
     plot_bgcolor: '#f1f2f1'
@@ -422,10 +426,25 @@ document.getElementById('waterForm').addEventListener('submit', function(event) 
 
   Plotly.newPlot('pieChart', data, layout, { displayModeBar: false });
 
+  const tipsContainer = document.getElementById('tipsContainer');
+  tipsContainer.innerHTML = `
+    <h3>Tips för att minska din vattenförbrukning:</h3>
+    <ul>
+      <li>Ta kortare duschar för att spara vatten och stäng av vattnet när du tvålar in dig</li>
+      <li>Stäng av vattnet när du tvålar in dig vid handtvätt.</li>
+      <li>Införskaffa snålspolande toalett och/eller duschmunstycke.</li>
+      <li>Kör diskmaskin och tvättmaskin endast när de är fulla.</li>
+      <li>Spara regnvatten för att vattna trädgården.</li>
+      <li>Reparera läckor snabbt för att undvika spill.</li>
+      <li>Diska i balja istället för under rinnande vatten.</li>
+      <li>Tvätta bara när det verkligen behövs, ofta räcker det med att vädra kläderna.</li>
+    </ul>
+  `;
+
   document.getElementById('resultModal').style.display = 'block';
 });
 
-// 🔒 Stäng resultatmodulen
+// Stäng resultatmodulen
 document.getElementById('closeResultBtn').addEventListener('click', function() {
   document.getElementById('resultModal').style.display = 'none';
 });
@@ -434,10 +453,10 @@ document.getElementById('closeResultBtn').addEventListener('click', function() {
 
 /* HEADER/MENY */
 
-function toggleMenu() {
-  const menu = document.getElementById("mobileMenu");
-  menu.classList.toggle("show");
-}
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.classList.toggle("show");
+  }
 
 /* FOOTER */
 document.addEventListener('DOMContentLoaded', function () {

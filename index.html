@@ -11,24 +11,30 @@
 <body>
 
 <header class="top-bar">
-<div class="logo">WaterLogo</div>
+  <div class="logo">
+    <a href="index.html">
+      <img src="./img/jorddroppe-blue.png" alt="Gå till startsidan">
+    </a>
+  </div>
 
-<div class="hamburger" onclick="toggleMenu()">
-  <div></div>
-  <div></div>
-  <div></div>
-</div>
+  <!-- Hamburgerikon syns bara på mobil -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 
-<nav class="desktop-menu">
-  <a href="#">START</a>
-  <a href="va-fakta.html">WATER</a>
-  <a href="#map-link">KARTA</a>
-  <a href="#line-chart-link">GRAF</a>
-  <a href="#">FAQ</a>
-</nav>
-
-
+  <!-- Desktopmeny -->
+  <nav class="desktop-menu">
+    <a href="va-fakta.html">HÅLLBART VATTEN</a>
+  </nav>
 </header>
+  <!-- Mobilmeny -->
+  <nav id="mobileMenu" class="mobile-menu">
+    <a href="va-fakta.html">HÅLLBART VATTEN</a>
+  </nav>
+
+
 
 <nav class="mobile-menu" id="mobileMenu">
   <a href="#">START</a>
@@ -151,8 +157,6 @@
     </div>
         </div>
       </div>
-  </div>
-</div>
 </section>
 
 
@@ -223,15 +227,15 @@
 
 <div id="selectedRegionData"></div>
       <label>
-        Hur länge duschar du i snitt varje dag?  
+        Hur länge duschar du i snitt varje dag? (minuter) 
         <input type="number" name="shower" min="0" placeholder="t.ex. 7 minuter" required>
       </label>
       <label>
-        Hur ofta spolar du i toaletten hemma varje dag?  
+        Hur många gånger spolar du i toaletten hemma varje dag?  
         <input type="number" name="toilet" min="0" placeholder="t.ex. 5 gånger" required>
       </label>
       <label>
-        Hur länge använder du kranen totalt varje dag?  
+        Hur länge använder du kranen totalt varje dag?  (minuter)
         <small>(T.ex. borsta tänder, tvätta händer, diska för hand)</small>
         <input type="number" name="tap" min="0" placeholder="t.ex. 10 minuter" required>
       </label>
@@ -290,6 +294,7 @@
     <span class="close-btn" id="closeResultBtn">&times;</span>
 <div id="result"></div>
 <div id="pieChart" class="pie-chart"></div>
+<div id="tipsContainer"></div> 
 </div>
 </div>
 
