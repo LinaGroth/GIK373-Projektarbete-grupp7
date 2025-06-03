@@ -52,7 +52,6 @@ const years = ["2000", "2005", "2010", "2015", "2020"];
 let selectedYear = "2020";
 const yearButtonsContainer = document.getElementById('yearButtons');
 
-
 function setActiveButton(year) {
   const buttons = yearButtonsContainer.querySelectorAll('button');
   buttons.forEach(btn => btn.classList.toggle('active', btn.textContent === year));
@@ -106,7 +105,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-
 
 async function calculateWaterPerPerson(year) {
   const popQuery = structuredClone(basePopQuery);
@@ -216,7 +214,6 @@ async function displayWaterHouseholdDataOnMap(year) {
 // Initiera visualiseringar
 createYearButtons();
 updateMap(selectedYear);
-
 
 //LINJEDIAGRAM
 async function fetchNationalWaterUsageOverTime() {
@@ -340,11 +337,9 @@ const layout = {
 
 drawNationalWaterUsageLineChart();
 
-
 // FORMULÄR
 document.getElementById('waterForm').addEventListener('submit', function(event) {
   event.preventDefault();
-
 
 
   const form = event.target;
@@ -451,7 +446,6 @@ document.getElementById('closeResultBtn').addEventListener('click', function() {
 });
 
 
-
 /* HEADER/MENY */
 
   function toggleMenu() {
@@ -477,7 +471,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
   document.getElementById("openFormBtn").addEventListener("click", function() {
     document.getElementById("formModal").style.display = "block";
   });
@@ -493,7 +486,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("formModal").style.display = "none";
   });
 
-
   // Klick utanför modalen stänger den
   window.addEventListener("click", function(event) {
     const modal = document.getElementById("formModal");
@@ -501,7 +493,6 @@ document.addEventListener('DOMContentLoaded', function () {
       modal.style.display = "none";
     }
   });
-
 
   // Öppna resultatmodellen när man beräknar
 function openResultModal() {
@@ -594,5 +585,4 @@ function drawPieChart(dataObject) {
   const chart = new google.visualization.PieChart(document.getElementById('pieChart'));
   chart.draw(data, options);
 }
-
 
