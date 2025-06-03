@@ -416,13 +416,14 @@ document.getElementById('waterForm').addEventListener('submit', function(event) 
   }];
 
   const layout = {
-    height: 200,
-    width: 450,
-    margin: { t: 10, b: 10, l: 60, r: 60 }, // ge plats åt text på sidorna
+    height: 350,
+    width: 650,
+    margin: { t: 60, b: 60, l: 0, r: 60 }, // ge plats åt text på sidorna
     showlegend: false,
     paper_bgcolor: '#f1f2f1',
     plot_bgcolor: '#f1f2f1'
   };
+  
 
   Plotly.newPlot('pieChart', data, layout, { displayModeBar: false });
 

@@ -4,6 +4,7 @@
   
     --forest-green:  #698769;
     --green-blue-opacity: #1e363ee9;
+    --green-blue: #1e363e;
     --ocean-blue:  #003344;
     --ocean-blue-opacity: #00334475;
     --white: #f1f2f1; 
@@ -40,17 +41,6 @@ html, body {
 /* MENY */
 
 .top-bar {
-  /* box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  overflow: hidden; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -208,8 +198,8 @@ header {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centrerar vertikalt */
-  position: relative; /* Behålls om du har en absolut bakgrund */
+  justify-content: center;
+  position: relative;
   z-index: 1;
 }
  
@@ -221,6 +211,7 @@ header {
   line-height: 1;
   color: var(--white);
 }
+
 .hero-info-box {
   background-color: var(--green-blue-opacity);
   color: var(--white);
@@ -233,7 +224,6 @@ header {
   margin-left: 5vw;
 }
 
-
 .info-box-content {
   max-width: 90%;
   margin: 0 auto;
@@ -241,7 +231,6 @@ header {
   flex-direction: column;
   align-items: flex-start;
 }
-
 
 .hero-info-box h2 {
   font-size: 2rem;
@@ -256,15 +245,15 @@ header {
 .stats-cards {
   display: flex;
   flex-wrap: nowrap;
-  gap: 3rem;
   justify-content: center;
   z-index: 3;
   width: 100%;
-  margin-top: -15rem;
+  margin-top: -10rem;
+  gap: 1rem;
 }
 
 .card {
-  padding: 5rem;
+  padding: 2rem;
   color: var(--white);
   width: 260px;
   text-align: center;
@@ -323,17 +312,17 @@ header {
 .footer-dropdown .dropdown-menu {
   display: none;
   position: absolute;
-  background-color: var(--white);
-  color: var(--black);
+  background-color: var(--green-blue);
   z-index: 100;
   bottom: 100%;
   left: 0.5rem;
   white-space: nowrap;
+  padding: 1rem;
 }
 
 .footer-dropdown .dropdown-menu li {
   list-style: none;
-  border-bottom: 1px solid #1e1e1e;
+  border-bottom: 1px solid #fff;
 }
 
 .footer-dropdown .dropdown-menu li a {
@@ -341,8 +330,7 @@ header {
   padding: 15px;
   text-decoration: none;
   display: block;
-  box-shadow: 1px 1px 1px 1px #1e1e1e;
-  border-radius: 5px ;
+  color: var(--white);
 }
 
 .footer-dropdown .dropdown-menu li a:hover {
@@ -352,6 +340,7 @@ header {
 .footer-dropdown:hover .dropdown-menu {
   display: block;
 }
+
 
 
 
@@ -794,11 +783,12 @@ form#waterForm button:focus-visible {
 
 .pie-chart {
   max-width: 350px;
-  margin: 4rem 10%;
+  align-items: center;
 }
 
 #resultModal .form-container {
-  max-width: 700px;
+  max-width: 800px;
+  width: 90%;
   margin: 5% auto;
 }
 
@@ -817,8 +807,6 @@ form#waterForm button:focus-visible {
   .hamburger {
     display: flex;
   }
-
-
 
   header {
     padding: 1rem;
@@ -864,7 +852,6 @@ form#waterForm button:focus-visible {
 
   .hero-info-box {
     position: relative;
-    top: -4rem;
     left: 57%;
     transform: translate(-50%);
     text-align: center;
@@ -900,17 +887,11 @@ form#waterForm button:focus-visible {
 
 
 
+
   /* STATISTIKKORT */
   .stats-cards {
-    position: absolute;
-    top: 55rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 90%;
-    gap: 1rem;
+    position: relative;
+    top: auto;
   }
 
   .card {
@@ -1002,13 +983,16 @@ form#waterForm button:focus-visible {
     box-sizing: border-box;
   }
 
-  #pieChart {
-  width: 100 !important; 
-  max-width: 450px !important; 
-  height: 250px !important; 
-  padding:2rem;
-  margin: 0 auto; 
-  margin-bottom: 2rem;
+  .pie-chart {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .tips-container {
+    margin-top: 2rem;
   }
 
   form label {
