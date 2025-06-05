@@ -78,6 +78,7 @@ function createYearButtons() {
   });
 }
 
+// Läs mer-knapp
 document.addEventListener("DOMContentLoaded", function () {
   const readMoreLinks = document.querySelectorAll(".read-more");
   const modals = document.querySelectorAll(".modal");
@@ -96,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Stäng modalen om användaren klickar utanför modalinnehållet
+  // Stäng modalen vid klick utanför
   window.addEventListener("click", (event) => {
     modals.forEach((modal) => {
       if (event.target === modal) {
@@ -121,10 +122,10 @@ async function calculateWaterPerPerson(year) {
   console.log("Populationsdata:", popData.data);
   console.log("Vattendata:", waterData.data);
 
-  // Befolkning: antal personer per region
+  // Befolkning, antal personer per region
   const popValues = popData.data.map(d => Number(d.values[0]));
 
-  // Vatten i 1000-tal kubikmeter per år — multiplicera med 1000 för kubikmeter
+  // Vatten i 1000-tal kubikmeter per år, multiplicera med 1000 för kubikmeter
   const waterValues = waterData.data.map(d => Number(d.values[0]) * 1000);
 
   // Kubikmeter vatten per person och år
@@ -211,14 +212,13 @@ async function displayWaterHouseholdDataOnMap(year) {
   Plotly.newPlot('waterHouseholdStatistics', data, layout, config);
 }
 
-// Initiera visualiseringar
 createYearButtons();
 updateMap(selectedYear);
 
 //LINJEDIAGRAM
 async function fetchNationalWaterUsageOverTime() {
-  const xValues = []; // År
-  const yValues = []; // Genomsnittligt liter/person
+  const xValues = []; 
+  const yValues = []; 
 
   for (const year of years) {
     const result = await calculateWaterPerPerson(year);
@@ -286,14 +286,14 @@ const layout = {
     gridcolor: 'rgba(0,0,0,0.05)',
     tickfont: { size: 12, color: '#495057' },
     linecolor: '#ced4da',
-    title: ''  // Tom titel eftersom vi använder annotation istället
+    title: ''  
   },
 
   annotations: [
     {
       xref: 'paper',
       yref: 'paper',
-      x: 0,      // Justera placeringen om det behövs
+      x: 0,      
       y: 1.03,
       text: 'Liter/person',
       showarrow: false,
@@ -302,13 +302,13 @@ const layout = {
         color: '#1e2b39',
         family: 'M PLUS 1p, sans-serif'
       },
-      textangle: 0,  // Horisontell text
+      textangle: 0, 
       xanchor: 'center',
       yanchor: 'middle'
     }
   ],
 
-  margin: { t: 100, b: 80, l: 110, r: 30 },  // Ökad vänstermarginal så annotationen inte klipps bort
+  margin: { t: 100, b: 80, l: 110, r: 30 },  
 
   plot_bgcolor: '#f1f2f1',
   paper_bgcolor: '#f1f2f1',
@@ -337,114 +337,6 @@ const layout = {
 
 drawNationalWaterUsageLineChart();
 
-// FORMULÄR
-document.getElementById('waterForm').addEventListener('submit', function(event) {
-  event.preventDefault();
-
-
-  const form = event.target;
-
-  const showerTime = Number(form.shower.value);
-  const toiletUse = Number(form.toilet.value);
-  const tapTime = Number(form.tap.value);
-  const handwashTimes = Number(form.handwash.value);
-  const dishwasherUse = form.dishwasher_use.value;
-  const washingUse = form.washing.value;
-  const hasSaver = form.saver.value === 'yes';
-
-  // Standard vattenförbrukning per aktivitet (liter)
-  const waterPerMinShower = 9;
-  const waterPerToiletFlush = 6;
-  const waterPerMinTap = 5;
-  const waterPerHandwash = 15;
-  const waterPerDishwasherRun = 12;
-  const waterPerWashingRun = 50;
-
-  const saverFactor = hasSaver ? 0.7 : 1;
-
-  function parseWeeklyCount(value) {
-    switch(value) {
-      case '0': return 0;
-      case '1-2': return 1.5;
-      case '3-5': return 4;
-      case '6-10': return 8;
-      default: return 0;
-    }
-  }
-
-  const dishwasherRunsPerWeek = parseWeeklyCount(dishwasherUse);
-  const washingRunsPerWeek = parseWeeklyCount(washingUse);
-
-  const showerUsage = showerTime * waterPerMinShower * saverFactor;
-  const toiletUsage = toiletUse * waterPerToiletFlush * saverFactor;
-  const tapUsage = tapTime * waterPerMinTap * saverFactor;
-  const handwashUsage = handwashTimes * waterPerHandwash * saverFactor;
-  const dishwasherUsage = (dishwasherRunsPerWeek / 7) * waterPerDishwasherRun * saverFactor;
-  const washingUsage = (washingRunsPerWeek / 7) * waterPerWashingRun * saverFactor;
-
-  const totalUsage = showerUsage + toiletUsage + tapUsage + handwashUsage + dishwasherUsage + washingUsage;
-  const yearlyUsage = totalUsage * 365;
-
-  // Visa textresultat
-  const resultDiv = document.getElementById('result');
-  resultDiv.innerHTML = `
-    <h3>Din uppskattade dagliga vattenförbrukning per person är ca <strong>${totalUsage.toFixed(1)} liter</strong>.<br>
-    Det motsvarar ungefär <strong>${yearlyUsage.toFixed(0)} liter per år</strong>.</h3>
-  `;
-
-  // Cirkeldiagramdata
-  const values = [showerUsage, toiletUsage, tapUsage, handwashUsage, dishwasherUsage, washingUsage];
-  const labels = ['Dusch', 'Toalett', 'Kran', 'Disk för hand', 'Diskmaskin', 'Tvätt'];
-  const valueLabels = labels.map((label, i) => `${label}: ${values[i].toFixed(1)} liter`);
-
-  const data = [{
-    values: values,
-    labels: valueLabels,
-    type: 'pie',
-    textinfo: 'label',
-    hoverinfo: 'none', // ingen hoverinfo
-    textposition: 'outside',
-    automargin: false,
-    marker: {
-      colors: ['#c9e4ca', '#87bba2', '#55828b', '#3b6064', '#364958', '#011936']
-    }
-  }];
-
-  const layout = {
-    height: 350,
-    width: 650,
-    margin: { t: 60, b: 60, l: 0, r: 60 }, // ge plats åt text på sidorna
-    showlegend: false,
-    paper_bgcolor: '#f1f2f1',
-    plot_bgcolor: '#f1f2f1'
-  };
-  
-
-  Plotly.newPlot('pieChart', data, layout, { displayModeBar: false });
-
-  const tipsContainer = document.getElementById('tipsContainer');
-  tipsContainer.innerHTML = `
-    <h3>Tips för att minska din vattenförbrukning:</h3>
-    <ul>
-      <li>Ta kortare duschar för att spara vatten och stäng av vattnet när du tvålar in dig</li>
-      <li>Stäng av vattnet när du tvålar in dig vid handtvätt.</li>
-      <li>Införskaffa snålspolande toalett och/eller duschmunstycke.</li>
-      <li>Kör diskmaskin och tvättmaskin endast när de är fulla.</li>
-      <li>Spara regnvatten för att vattna trädgården.</li>
-      <li>Reparera läckor snabbt för att undvika spill.</li>
-      <li>Diska i balja istället för under rinnande vatten.</li>
-      <li>Tvätta bara när det verkligen behövs, ofta räcker det med att vädra kläderna.</li>
-    </ul>
-  `;
-
-  document.getElementById('resultModal').style.display = 'block';
-});
-
-// Stäng resultatmodulen
-document.getElementById('closeResultBtn').addEventListener('click', function() {
-  document.getElementById('resultModal').style.display = 'none';
-});
-
 
 /* HEADER/MENY */
 
@@ -470,41 +362,165 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+/* // Del 1
 
-  document.getElementById("openFormBtn").addEventListener("click", function() {
-    document.getElementById("formModal").style.display = "block";
-  });
+// FORMULÄR
 
-  document.getElementById("closeFormBtn").addEventListener("click", function() {
-    document.getElementById("formModal").style.display = "none";
-  });
-    document.getElementById("openFormBtn2").addEventListener("click", function() {
-    document.getElementById("formModal").style.display = "block";
-  });
+// När formuläret skickas...
+document.getElementById('waterForm').addEventListener('submit', function (event) {
+  // Förhindrar att sidan laddas om (standardbeteende)
+  event.preventDefault();
 
-  document.getElementById("closeFormBtn").addEventListener("click", function() {
-    document.getElementById("formModal").style.display = "none";
-  });
+  // Sparar en referens till formuläret som skickades
+  const form = event.target;
 
-  // Klick utanför modalen stänger den
-  window.addEventListener("click", function(event) {
-    const modal = document.getElementById("formModal");
-    if (event.target === modal) {
-      modal.style.display = "none";
+  // Hämtar och konverterar värden från formuläret
+  const showerTime = Number(form.shower.value);              // minuter i duschen per dag
+  const toiletUse = Number(form.toilet.value);              // antal spolningar per dag
+  const tapTime = Number(form.tap.value);                   // minuter med rinnande kran per dag
+  const handwashTimes = Number(form.handwash.value);        // antal gånger diskar för hand per dag
+  const dishwasherUse = form.dishwasher_use.value;          // användning per vecka (textvärde)
+  const washingUse = form.washing.value;                    // användning per vecka (textvärde)
+  const hasSaver = form.saver.value === 'yes';              // om personen har snålspolande munstycke/toalett
+
+  // Vattenförbrukning i liter för varje aktivitet
+  const waterPerMinShower = 9;
+  const waterPerToiletFlush = 6;
+  const waterPerMinTap = 5;
+  const waterPerHandwash = 15;
+  const waterPerDishwasherRun = 12;
+  const waterPerWashingRun = 50;
+
+  // Justerar vattenförbrukning om man har snålspolande utrustning
+  const saverFactor = hasSaver ? 0.7 : 1;
+
+  // Omvandlar veckointervaller till snitt per vecka i antal
+  function parseWeeklyCount(value) {
+    switch(value) {
+      case '0': return 0;
+      case '1-2': return 1.5;
+      case '3-5': return 4;
+      case '6-10': return 8;
+      default: return 0;
     }
-  });
+  }
 
-  // Öppna resultatmodellen när man beräknar
-function openResultModal() {
-  document.getElementById("resultModal").style.display = "block";
-}
+  // Räknar ut snittanvändning per dag baserat på valda intervaller
+  const dishwasherRunsPerWeek = parseWeeklyCount(dishwasherUse);
+  const washingRunsPerWeek = parseWeeklyCount(washingUse);
 
-// Stängmodalknapp
-document.getElementById("closeResultBtn").addEventListener("click", function () {
-  document.getElementById("resultModal").style.display = "none";
+  // Vattenanvändning för varje aktivitet (per dag)
+  const showerUsage = showerTime * waterPerMinShower * saverFactor;
+  const toiletUsage = toiletUse * waterPerToiletFlush * saverFactor;
+  const tapUsage = tapTime * waterPerMinTap * saverFactor;
+  const handwashUsage = handwashTimes * waterPerHandwash * saverFactor;
+  const dishwasherUsage = (dishwasherRunsPerWeek / 7) * waterPerDishwasherRun * saverFactor;
+  const washingUsage = (washingRunsPerWeek / 7) * waterPerWashingRun * saverFactor;
+
+  // Total vattenanvändning per dag + per år
+  const totalUsage = showerUsage + toiletUsage + tapUsage + handwashUsage + dishwasherUsage + washingUsage;
+  const yearlyUsage = totalUsage * 365;
+
+  // Visar resultat i HTML-elementet #result
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = `
+    <h3>Din uppskattade dagliga vattenförbrukning per person är ca <strong>${totalUsage.toFixed(1)} liter</strong>.<br>
+    Det motsvarar ungefär <strong>${yearlyUsage.toFixed(0)} liter per år</strong>.</h3>
+  `;
+
+  // Förbereder data till cirkeldiagrammet
+  const values = [showerUsage, toiletUsage, tapUsage, handwashUsage, dishwasherUsage, washingUsage];
+  const labels = ['Dusch', 'Toalett', 'Kran', 'Disk för hand', 'Diskmaskin', 'Tvätt'];
+  const valueLabels = labels.map((label, i) => `${label}: ${values[i].toFixed(1)} liter`);
+
+  // Skapar cirkeldiagram med Plotly.js
+  const data = [{
+    values: values,
+    labels: valueLabels,
+    type: 'pie',
+    textinfo: 'label',        // Visar etiketter istället för siffror
+    hoverinfo: 'none',
+    textposition: 'outside',
+    automargin: false,
+    marker: {
+      colors: ['#c9e4ca', '#87bba2', '#55828b', '#3b6064', '#364958', '#011936'] // Färger på sektorer
+    }
+  }];
+
+  // Layoutinställningar för diagrammet
+  const layout = {
+    height: 350,
+    width: 650,
+    margin: { t: 60, b: 60, l: 0, r: 60 },
+    showlegend: false,
+    paper_bgcolor: '#f1f2f1',
+    plot_bgcolor: '#f1f2f1'
+  };
+
+  // Renderar cirkeldiagrammet i #pieChart
+  Plotly.newPlot('pieChart', data, layout, { displayModeBar: false });
+
+  // Lägger in tips i #tipsContainer
+  const tipsContainer = document.getElementById('tipsContainer');
+  tipsContainer.innerHTML = `
+    <h3>Tips för att minska din vattenförbrukning:</h3>
+    <ul>
+      <li>Ta kortare duschar för att spara vatten och stäng av vattnet när du tvålar in dig</li>
+      <li>Stäng av vattnet när du tvålar in dig vid handtvätt.</li>
+      <li>Införskaffa snålspolande toalett och/eller duschmunstycke.</li>
+      <li>Kör diskmaskin och tvättmaskin endast när de är fulla.</li>
+      <li>Spara regnvatten för att vattna trädgården.</li>
+      <li>Reparera läckor snabbt för att undvika spill.</li>
+      <li>Diska i balja istället för under rinnande vatten.</li>
+      <li>Tvätta bara när det verkligen behövs, ofta räcker det med att vädra kläderna.</li>
+    </ul>
+  `;
+
+  // Öppnar resultatmodellen genom att visa den
+  document.getElementById('resultModal').style.display = 'block';
 });
 
-// Klick utanför rutan stänger modalen
+// Stänger resultatmodellen när användaren klickar på stäng-knappen
+document.getElementById('closeResultBtn').addEventListener('click', function() {
+  document.getElementById('resultModal').style.display = 'none';
+});
+
+
+
+
+
+
+
+
+
+
+
+// Del 2
+
+// OPEN and CLOSE the form modal
+document.getElementById("openFormBtn").addEventListener("click", function() {
+  document.getElementById("formModal").style.display = "block"; // Show the form modal
+});
+
+document.getElementById("closeFormBtn").addEventListener("click", function() {
+  document.getElementById("formModal").style.display = "none"; // Hide the form modal
+});
+
+document.getElementById("openFormBtn2").addEventListener("click", function() {
+  document.getElementById("formModal").style.display = "block"; // Alternative button to open the form
+});
+
+// Clicking outside the form modal closes it
+window.addEventListener("click", function(event) {
+  const modal = document.getElementById("formModal");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+
+
+// Clicking outside the result modal closes it
 window.addEventListener("click", function (event) {
   const modal = document.getElementById("resultModal");
   if (event.target === modal) {
@@ -512,19 +528,22 @@ window.addEventListener("click", function (event) {
   }
 });
 
+// Handle form submission
 document.getElementById("waterForm").addEventListener("submit", function (event) {
-  event.preventDefault(); // Hindrar sidan från att laddas om
+  event.preventDefault(); // Prevent form from reloading the page
 
   const form = event.target;
+
+  // Get values from form inputs
   const shower = parseFloat(form.shower.value) || 0;
   const toilet = parseFloat(form.toilet.value) || 0;
   const tap = parseFloat(form.tap.value) || 0;
   const handwash = parseInt(form.handwash.value) || 0;
   const dishwasherUse = form.dishwasher_use.value;
   const washing = form.washing.value;
-  const saver = form.saver.value;
+  const saver = form.saver.value; // "yes" or "no"
 
-  // Omvandla veckovisa användningar till dagligt snitt
+  // Convert weekly use to average daily use
   const dishwasherDaily = dishwasherUse === "1-2" ? 1.5 / 7 :
                           dishwasherUse === "3-5" ? 4 / 7 :
                           dishwasherUse === "6-10" ? 8 / 7 : 0;
@@ -533,20 +552,17 @@ document.getElementById("waterForm").addEventListener("submit", function (event)
                        washing === "3-5" ? 4 / 7 :
                        washing === "6-10" ? 8 / 7 : 0;
 
-  // Vattenförbrukning i liter
-  let totalUsage = 0;
-  let usageBreakdown = {};
-
-  const showerUsage = shower * (saver === "yes" ? 6 : 12); // liter per minut
-  const toiletUsage = toilet * (saver === "yes" ? 4 : 6);  // liter per spolning
-  const tapUsage = tap * 6;                               // liter per minut
+  // Water usage calculations
+  const showerUsage = shower * (saver === "yes" ? 6 : 12); // Less if saver is used
+  const toiletUsage = toilet * (saver === "yes" ? 4 : 6);
+  const tapUsage = tap * 6;
   const handwashUsage = handwash * 15;
   const dishwasherUsage = dishwasherDaily * 12;
   const washingUsage = washingDaily * 50;
 
-  totalUsage = showerUsage + toiletUsage + tapUsage + handwashUsage + dishwasherUsage + washingUsage;
+  const totalUsage = showerUsage + toiletUsage + tapUsage + handwashUsage + dishwasherUsage + washingUsage;
 
-  usageBreakdown = {
+  const usageBreakdown = {
     "Dusch": showerUsage,
     "Toalett": toiletUsage,
     "Kran": tapUsage,
@@ -555,22 +571,24 @@ document.getElementById("waterForm").addEventListener("submit", function (event)
     "Tvättmaskin": washingUsage
   };
 
+  // Display result in text
   const resultDiv = document.getElementById("result");
   resultDiv.innerHTML = `
     <h3>Din uppskattade dagliga vattenförbrukning per person är ca <strong>${totalUsage.toFixed(1)} liter</strong>.</h3>
   `;
 
-  // Visa resultatmodellen
+  // Show the result modal
   openResultModal();
 
-  // Rita cirkeldiagram
+  // Draw pie chart
   drawPieChart(usageBreakdown);
 });
 
+// Function to draw the pie chart using Google Charts
 function drawPieChart(dataObject) {
   const data = google.visualization.arrayToDataTable([
     ['Aktivitet', 'Liter'],
-    ...Object.entries(dataObject)
+    ...Object.entries(dataObject) // Convert object to array
   ]);
 
   const options = {
@@ -583,6 +601,140 @@ function drawPieChart(dataObject) {
   };
 
   const chart = new google.visualization.PieChart(document.getElementById('pieChart'));
-  chart.draw(data, options);
-}
+  chart.draw(data, options); // Draw the chart
+} */
 
+
+
+
+
+// --- Öppna/stäng formulärmodal ---
+document.getElementById("openFormBtn").addEventListener("click", () => {
+  document.getElementById("formModal").style.display = "block";
+});
+document.getElementById("closeFormBtn").addEventListener("click", () => {
+  document.getElementById("formModal").style.display = "none";
+});
+
+// Stäng formulärmodal om man klickar utanför
+window.addEventListener("click", (event) => {
+  const formModal = document.getElementById("formModal");
+  const resultModal = document.getElementById("resultModal");
+
+  if (event.target === formModal) {
+    formModal.style.display = "none";
+  }
+  if (event.target === resultModal) {
+    resultModal.style.display = "none";
+  }
+});
+
+// --- Hantera formulärinlämning ---
+document.getElementById("waterForm").addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const form = event.target;
+
+  // Läs in värden från formuläret
+  const showerTime = Number(form.shower.value) || 0;
+  const toiletUse = Number(form.toilet.value) || 0;
+  const tapTime = Number(form.tap.value) || 0;
+  const handwashTimes = Number(form.handwash.value) || 0;
+  const dishwasherUse = form.dishwasher_use.value;
+  const washingUse = form.washing.value;
+  const hasSaver = form.saver.value === 'yes';
+
+  // Konstanter för vattenförbrukning (liter)
+  const waterPerMinShower = 9;
+  const waterPerToiletFlush = 6;
+  const waterPerMinTap = 5;
+  const waterPerHandwash = 15;
+  const waterPerDishwasherRun = 12;
+  const waterPerWashingRun = 50;
+  const saverFactor = hasSaver ? 0.7 : 1;
+
+  // Funktion för att översätta veckointervaller till antal per vecka
+  function parseWeeklyCount(value) {
+    switch(value) {
+      case '0': return 0;
+      case '1-2': return 1.5;
+      case '3-5': return 4;
+      case '6-10': return 8;
+      default: return 0;
+    }
+  }
+
+  const dishwasherRunsPerWeek = parseWeeklyCount(dishwasherUse);
+  const washingRunsPerWeek = parseWeeklyCount(washingUse);
+
+  // Beräkna vattenförbrukning per dag för varje aktivitet
+  const showerUsage = showerTime * waterPerMinShower * saverFactor;
+  const toiletUsage = toiletUse * waterPerToiletFlush * saverFactor;
+  const tapUsage = tapTime * waterPerMinTap * saverFactor;
+  const handwashUsage = handwashTimes * waterPerHandwash * saverFactor;
+  const dishwasherUsage = (dishwasherRunsPerWeek / 7) * waterPerDishwasherRun * saverFactor;
+  const washingUsage = (washingRunsPerWeek / 7) * waterPerWashingRun * saverFactor;
+
+  const totalUsage = showerUsage + toiletUsage + tapUsage + handwashUsage + dishwasherUsage + washingUsage;
+  const yearlyUsage = totalUsage * 365;
+
+  // Visa textresultat
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = `
+    <h3>Din uppskattade dagliga vattenförbrukning per person är ca <strong>${totalUsage.toFixed(1)} liter</strong>.<br>
+    Det motsvarar ungefär <strong>${yearlyUsage.toFixed(0)} liter per år</strong>.</h3>
+  `;
+
+  // Rita cirkeldiagram med Plotly
+  const values = [showerUsage, toiletUsage, tapUsage, handwashUsage, dishwasherUsage, washingUsage];
+  const labels = ['Dusch', 'Toalett', 'Kran', 'Disk för hand', 'Diskmaskin', 'Tvätt'];
+  const valueLabels = labels.map((label, i) => `${label}: ${values[i].toFixed(1)} liter`);
+
+  const data = [{
+    values: values,
+    labels: valueLabels,
+    type: 'pie',
+    textinfo: 'label',
+    hoverinfo: 'none',
+    textposition: 'outside',
+    automargin: false,
+    marker: {
+      colors: ['#c9e4ca', '#87bba2', '#55828b', '#3b6064', '#364958', '#011936']
+    }
+  }];
+
+  const layout = {
+    height: 350,
+    width: 650,
+    margin: { t: 60, b: 60, l: 0, r: 60 },
+    showlegend: false,
+    paper_bgcolor: '#f1f2f1',
+    plot_bgcolor: '#f1f2f1'
+  };
+
+  Plotly.newPlot('pieChart', data, layout, { displayModeBar: false });
+  
+  const tipsContainer = document.getElementById('tipsContainer');
+  tipsContainer.innerHTML = `
+    <h3>Tips för att minska din vattenförbrukning:</h3>
+    <ul>
+      <li>Ta kortare duschar för att spara vatten och stäng av vattnet när du tvålar in dig</li>
+      <li>Stäng av vattnet när du tvålar in dig vid handtvätt.</li>
+      <li>Införskaffa snålspolande toalett och/eller duschmunstycke.</li>
+      <li>Kör diskmaskin och tvättmaskin endast när de är fulla.</li>
+      <li>Spara regnvatten för att vattna trädgården.</li>
+      <li>Reparera läckor snabbt för att undvika spill.</li>
+      <li>Diska i balja istället för under rinnande vatten.</li>
+      <li>Tvätta bara när det verkligen behövs, ofta räcker det med att vädra kläderna.</li>
+    </ul>
+  `;
+
+  // Stäng formulärmodal och öppna resultatmodal
+  document.getElementById("formModal").style.display = "none";
+  document.getElementById("resultModal").style.display = "flex";
+});
+
+// Stäng resultatmodal med knapp
+document.getElementById('closeResultBtn').addEventListener('click', () => {
+  document.getElementById('resultModal').style.display = 'none';
+});

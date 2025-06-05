@@ -35,14 +35,6 @@
     <a href="va-fakta.html">HÅLLBART VATTEN</a>
   </nav>
 
-<nav class="mobile-menu" id="mobileMenu">
-  <a href="#">START</a>
-  <a href="va-fakta.html">WATER</a>
-  <a href="#map-link">KARTA</a>
-  <a href="#line-chart-link">GRAF</a>
-  <a href="#">FAQ</a>
-</nav>
-
 <!-- INFOCARD TILL FORMULÄR -->
 <section class="hero">
   <div class="hero-content">
@@ -61,10 +53,10 @@
 </section>
 
 <!-- STATISTIK-CARDS -->
-  <section class="stats-cards-section">
+<section class="stats-cards-section">
   <div class="stats-cards">
     <div class="card"><h2>2 <br>MILJARDER</h2> <p>människor saknar <br>rent dricksvatten</p></div>
-    <div class="card"><h2>1,5 <br>MILJONER</h2> <p>människor dör av <br>vattenburna sjukdomar</p></div>
+    <div class="card"><h2>1,2 <br>MILJONER</h2> <p>människor dör av <br>vattenburna sjukdomar</p></div>
     <div class="card"><h2>140 <br>LITER</h2> <p>vatten använder <br>svensken dagligen</p></div>
   </div>
 </section>
@@ -75,7 +67,7 @@
   <div class="map-info">
 
   <h2>Hur mycket vatten använder<br> vi i svenska hushåll?</h2>
-<p>På den här kartan kan du se hur mycket vatten  liter per person och år som används i varje län i Sverige. Välj ett år nedan för att upptäcka skillnader mellan regioner och se hur vattenförbrukningen förändrats.</p>
+  <p>På den här kartan kan du se hur mycket vatten  liter per person och år som används i varje län i Sverige. Välj ett år nedan för att upptäcka skillnader mellan regioner och se hur vattenförbrukningen förändrats.</p>
 
   
     <div id="yearButtons" class="year-buttons-container"></div>
@@ -90,7 +82,7 @@
 <section id="line-chart-link" class="line-chart-section">
 <div class="line-chart">
   <div class="line-info">
-<h2>Hur har vattenförbrukningen <br> förändrats över tid?</h2>
+      <h2>Hur har vattenförbrukningen <br> förändrats över tid?</h2>
       <p>Det här linjediagrammet visar hur mycket vatten som i genomsnitt används per person och år i svenska hushåll.<br> Följ utvecklingen från år 2000 till 2020 och se hur vårt vattenanvändande har förändrats över tid.</p>
   </div>
 
@@ -103,28 +95,28 @@
 <!-- CARDS -->
 <section class="card-container"> 
   <div class="info-card"> 
-  <div class="water-video">
-  <video autoplay loop muted playsinline class="bakgrund-video">
+    <div class="water-video">
+      <video autoplay loop muted playsinline class="bakgrund-video">
       <source src="./img/Namnlös video – Gjord med Clipchamp (2).mp4" type="video/mp4">
       Din webbläsare stödjer inte videouppspelning.
-  </video>
-</div>
-</div>
+      </video>
+    </div>
+  </div>
 
 <div class="info-card">
-<div class="wash-info">
-  <h2>DIN ANVÄNDNING AV VATTEN PÅVERKAR MILJÖN</h2>
-  <p>
+  <div class="wash-info">
+    <h2>DIN ANVÄNDNING AV VATTEN PÅVERKAR MILJÖN</h2>
+    <p>
     I Norden har vi gott om färskvatten, men utmaningen ligger i att 
     små vattenförsörjningssystem ofta saknar resurser och kunskap för 
     att säkerställa rent vatten för alla. 
-  </p>
-  <a href="#" class="read-more">Läs mer</a>
+    </p>
+    <a href="#" class="read-more">Läs mer</a>
+  </div>
 </div>
-</div>
-      <div class="modal">
-        <div class="modal-content">
-          <span class="close-button">&times;</span>
+<div class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
           <p>I en studie från 2020 visar det att utbildning och stöd är avgörande 
             för att små system ska kunna hantera risker och förbättra vattenkvaliteten, 
             vilket är en viktig del i att nå rent vatten för alla enligt FN:s globala mål 6.
@@ -133,7 +125,7 @@
             tillsammans med stöd från myndigheter, är avgörande för att säkra 
             hållbar vattenanvändning och kvalitet — även i länder med relativt 
             god vattenförsörjning som Sverige.</p>
-</div>    
+  </div>    
 </div>
 
 <div class="info-card">
@@ -224,17 +216,21 @@
         </select>
       </label>
       
-      <button type="submit">Beräkna</button>
-<button type="reset">Rensa formuläret</button>
-    </form>
+<button type="submit">Beräkna</button>
+        <button type="reset">Rensa formuläret</button>
+      </form>
+    </section>
+  </div>
+</div>
 
-<div id="resultModal" class="modal">
+<!-- RESULTATMODAL -->
+<div id="resultModal" class="modal" style="display:none;">
   <div class="form-container">
     <span class="close-btn" id="closeResultBtn">&times;</span>
-<div id="result"></div>
-<div id="pieChart" class="pie-chart"></div>
-<div id="tipsContainer" class="tips-container"></div> 
-</div>
+    <div id="result"></div>
+    <div id="pieChart" class="pie-chart"></div>
+    <div id="tipsContainer" class="tips-container"></div> 
+  </div>
 </div>
 
   </section>
@@ -251,6 +247,9 @@
       <li><a href="https://www-sciencedirect-com.www.bibproxy.du.se/science/article/pii/S1438463920305733" target="_blank">Status of risk-based approach and national <br>framework for safe drinking water in <br>small water supplies of the Nordic water sector</a></li>
       <li><a href="https://iwaponline.com/wp/article/25/7/656/95807/Status-improvement-in-water-and-wastewater-fixed" target="_blank">Status improvement in water and wastewater <br>fixed facilities: Success and challenges of <br>11 Swedish water utilities as case studies</a></li>
       <li><a href="https://www.mdpi.com/2071-1050/13/15/8603" target="_blank">Water Use Behavior in a Multicultural <br>Urban Area in Sweden</a></li>
+      <li><a href="https://www.healthdata.org/news-events/newsroom/news-releases/diarrheal-diseases-remain-leading-killer-children-under-5-adults" target="_blank">Diarrheal diseases remain a leading killer <br>for children under 5, adults 70+</a></li>
+      <li><a href="https://www.svensktvatten.se/om-oss/verksamhet-och-strategi/fakta-om-vatten/dricksvattenfakta" target="_blank">Dricksvattenfakta</a></li>
+      <li><a href="https://vattenbokhandeln.svensktvatten.se/wp-content/uploads/2022/05/SV-Meddelande-Analys-Hushallens-vattenkonsumtion.pdf" target="_blank">Analys – Hushållens vattenkonsumtion</a></li>
     </ul>
   </div>
 </footer>

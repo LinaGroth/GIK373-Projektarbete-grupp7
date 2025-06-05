@@ -16,14 +16,7 @@
     --btn-focus: #162528 ;
 }
 
-
-
-
-
 /* GRUNDINSTÄLLNINGAR */
-html {
-  scroll-behavior: smooth;
-} 
 
 html, body {
   background-image: url("./img/water-for-all-bg.jpg");
@@ -33,10 +26,6 @@ html, body {
   width: 100%;
   overflow-x: hidden;
 }
-
-
-
-
 
 /* MENY */
 
@@ -50,14 +39,6 @@ html, body {
 
 .logo img {
   height: 40px; 
-  width: auto;
-  display: block;
-}
-
-.logo {
-  font-size: 1.5rem;
-  color: var(--white);
-  height: 40px;
   width: auto;
   display: block;
   margin-left: 1rem;
@@ -80,17 +61,6 @@ html, body {
 .desktop-menu a:hover {
   color: var(--forest-green)
 }
-
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-}
-
-
-
-
 
 /* HAMBURGER-MENY */
 
@@ -132,9 +102,6 @@ header {
   font-weight: bolder;
 }
 
-
-
-
  /* WATER-LÄNKEN */
 
  .content {
@@ -142,12 +109,12 @@ header {
   margin: 8rem auto 6rem auto;
   padding: 0 1rem;
 }
+
 .info-card-2 {
   background-color: var(--green-blue-opacity);
   color: var(--white);
   border-radius: 12px;
   padding: 2rem 2.5rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   font-size: 1.1rem;
   line-height: 1.6;
   font-weight: 400;
@@ -175,7 +142,7 @@ header {
   color: var(--white)
 }
 
-  .back-link {
+.back-link {
   display: inline-block;
   margin: 1rem 0;
   color: var(--white);
@@ -186,9 +153,6 @@ header {
 .back-link:hover {
   color: var(--forest-green)
 }
-
-
-
 
  /* HERO */
  
@@ -265,84 +229,149 @@ header {
   font-size: 2rem;
 }
 
+/* KNAPP FÖR ATT ÖPPNA FORMULÄR */
 
-
-
-
-/* FOOTER */
-
-.site-footer {
-  width: 100%;
-  background-color: var(--green-blue-opacity);
-  color: var(--white);
-  text-align: center;
-  padding: 1rem 1rem;
-  box-sizing: border-box;
-  position: relative;
-  left: 0;
-  margin: 0;
-}
-
-.footer-dropdown {
-  margin-top: 1rem;
-  position: relative;
-  display: inline-block;
-}
-
-.footer-dropdown .dropdown-toggle {
+.open-form-button {
+  margin-top: 2rem;
   padding: 12px 24px;
-  min-width: 100px;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
+  background-color: var(--btn);    
+  color: var(--white);
   border: none;
   border-radius: 10px;
-  letter-spacing: 0.03em;
-  background-color: var(--btn);     
-  color: var(--white);
-  box-shadow: 0 1px 2px #1e1e1e;
   cursor: pointer;
-  transition: all 0.25s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.footer-dropdown .dropdown-toggle:hover{
+ .open-form-button:hover {
   background-color: var(--btn-hoover);
   transform: translateY(-1px);
 }
 
-.footer-dropdown .dropdown-menu {
-  display: none;
-  position: absolute;
-  background-color: var(--green-blue);
-  z-index: 100;
-  bottom: 100%;
-  left: 0.5rem;
-  white-space: nowrap;
-  padding: 1rem;
-}
+/* FORMULÄR*/
 
-.footer-dropdown .dropdown-menu li {
-  list-style: none;
-  border-bottom: 1px solid #fff;
-}
-
-.footer-dropdown .dropdown-menu li a {
-  color: var(--black);
-  padding: 15px;
-  text-decoration: none;
-  display: block;
-  color: var(--white);
-}
-
-.footer-dropdown .dropdown-menu li a:hover {
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
   background-color: var(--white-opacity);
 }
 
-.footer-dropdown:hover .dropdown-menu {
-  display: block;
+.form-container {
+  background-color: var(--white);
+  margin: 5% auto;
+  padding: 30px 30px;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px #1e1e1e;
+  width: 100%;
+  max-width: 700px;
+  box-sizing: border-box;
 }
 
+.close-btn {
+  color: var(--black);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
+.close-btn:hover,
+.close-btn:focus {
+  color: var(--black-opacity);
+}
 
+form#waterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: 1rem;
+  max-width: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+form#waterForm label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  line-height: 1.3;
+  align-items: flex-start;
+  text-align: left;
+}
+
+form#waterForm label small {
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--black);
+  margin-top: 0.5%;
+}
+
+form#waterForm input[type="number"],
+form#waterForm select {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1.5px solid #1e1e1e;
+  border-radius: 8px;
+  outline-offset: 2px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+form#waterForm input[type="number"]:focus,
+form#waterForm select:focus {
+  border-color: var(--black);
+  outline: none;
+}
+
+form#waterForm button {
+  padding: 12px 24px;
+  min-width: 100px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  background-color: var(--btn);      
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px #1e1e1e;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+form#waterForm button:hover {
+  background-color: var(--btn-hoover);
+  color: var(--white);
+  box-shadow: 0 4px 10px #1e1e1e;
+  transform: translateY(-1px);
+}
+
+form#waterForm button:focus-visible {
+  outline: 3px solid #1e1e1e;     
+  outline-offset: 3px;
+}
+
+.pie-chart {
+  max-width: 350px;
+  align-items: center;
+}
+
+#resultModal .form-container {
+  max-width: 800px;
+  width: 90%;
+  margin: 5% auto;
+}
 
 
 
@@ -430,10 +459,6 @@ header {
   cursor: default;
 }
 
-
-
-
-
 /* LINJEDIAGRAM */
 
 .line-chart {
@@ -450,6 +475,7 @@ header {
   background-color: var(--white); 
   border-radius: 12px;
 }
+
 .line-info {
   flex: 1 1 300px;
   max-width: 400px;
@@ -460,10 +486,6 @@ header {
   flex: 1 1 600px;
   min-width: 300px;
 }
-
-
-
-
 
 /* CARDSEN LÄNGST NER */
 
@@ -586,11 +608,8 @@ header {
   font-weight: 500;
 }
 
-
-
-
-
 /* MODAL LÄS MER*/
+
 .modal {
   display: none;
   position: fixed;
@@ -607,14 +626,13 @@ header {
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: var(--white);
   border-radius: 12px;
-  padding: 2rem;
+  padding: 3rem;
   width: 100%;
   max-width: 550px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
   position: relative;
-  animation: fadeIn 0.3s ease-in-out;
   line-height: 1.6;
   font-size: 14px;
 }
@@ -625,75 +643,8 @@ header {
 
 .close-button {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  color: #00283a;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.close-button:hover {
-  transform: scale(1.2);
-}
-
-
-
-
-
-/* KNAPP FÖR ATT ÖPPNA FORMULÄR */
-
-.open-form-button {
-  display: block;
-  margin-top: 2rem;
-  padding: 12px 24px;
-  font-size: 1.125rem;
-  font-weight: 600;
-  background-color: var(--btn);    
-  color: var(--white);
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
- .open-form-button:hover {
-  background-color: var(--btn-hoover);
-  transform: translateY(-1px);
-}
-
-
-
-
-
-/* FORMULÄR*/
-.modal {
-  display: none; 
-  position: fixed;
-  z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: var(--white-opacity);
-}
-
-.form-container {
-  background-color: var(--white);
-  margin: 5% auto;
-  padding: 30px 30px;
-  border-radius: 12px;
-  box-shadow: 0 3px 6px #1e1e1e;
-  width: 100%;
-  max-width: 700px;
-  box-sizing: border-box;
-}
-
-.close-btn {
+  top: 0.3rem;
+  right: 1.5rem;
   color: var(--black);
   float: right;
   font-size: 28px;
@@ -701,100 +652,80 @@ header {
   cursor: pointer;
 }
 
-.close-btn:hover,
-.close-btn:focus {
+.close-button:hover {
   color: var(--black-opacity);
 }
 
-form#waterForm {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  font-size: 1rem;
-  max-width: 100%;
+/* FOOTER */
+
+.site-footer {
   width: 100%;
-  padding: 0;
-  margin: 0 auto;
-}
-
-form#waterForm label {
-  display: flex;
-  flex-direction: column;
-  font-weight: 500;
-  line-height: 1.3;
-  align-items: flex-start;
-  text-align: left;
-}
-
-
-form#waterForm label small {
-  font-weight: 400;
-  font-size: 0.85rem;
-  color: var(--black);
-  margin-top: 0.5%;
-}
-
-form#waterForm input[type="number"],
-form#waterForm select {
-  margin-top: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
-  border: 1.5px solid #1e1e1e;
-  border-radius: 8px;
-  outline-offset: 2px;
-  transition: border-color 0.3s ease;
-  width: 100%;
-  max-width: 100%;
+  background-color: var(--green-blue-opacity);
+  color: var(--white);
+  text-align: center;
+  padding: 1rem 1rem;
   box-sizing: border-box;
+  position: relative;
+  left: 0;
+  margin: 0;
 }
 
-form#waterForm input[type="number"]:focus,
-form#waterForm select:focus {
-  border-color: var(--black);
-  outline: none;
+.footer-dropdown {
+  margin-top: 1rem;
+  position: relative;
+  display: inline-block;
 }
 
-form#waterForm button {
+.footer-dropdown .dropdown-toggle {
   padding: 12px 24px;
   min-width: 100px;
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.03em;
-  background-color: var(--btn);      
-  color: var(--white);
   border: none;
   border-radius: 10px;
-  box-shadow: 0 3px 6px #1e1e1e;
+  letter-spacing: 0.03em;
+  background-color: var(--btn);     
+  color: var(--white);
+  box-shadow: 0 1px 2px #1e1e1e;
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
-form#waterForm button:hover {
+.footer-dropdown .dropdown-toggle:hover{
   background-color: var(--btn-hoover);
-  color: var(--white);
-  box-shadow: 0 4px 10px #1e1e1e;
   transform: translateY(-1px);
 }
 
-form#waterForm button:focus-visible {
-  outline: 3px solid #1e1e1e;     
-  outline-offset: 3px;
+.footer-dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: var(--green-blue);
+  z-index: 100;
+  bottom: 100%;
+  left: 0.5rem;
+  white-space: nowrap;
+  padding: 1rem;
 }
 
-.pie-chart {
-  max-width: 350px;
-  align-items: center;
+.footer-dropdown .dropdown-menu li {
+  list-style: none;
+  border-bottom: 1px solid var(--white);
 }
 
-#resultModal .form-container {
-  max-width: 800px;
-  width: 90%;
-  margin: 5% auto;
+.footer-dropdown .dropdown-menu li a {
+  padding: 15px;
+  text-decoration: none;
+  display: block;
+  color: var(--white);
 }
 
+.footer-dropdown .dropdown-menu li a:hover {
+  background-color: var(--white-opacity);
+}
 
-
-
+.footer-dropdown:hover .dropdown-menu {
+  display: block;
+}
 
 /* MEDIA QUERY 640 PX */
 
@@ -821,11 +752,8 @@ form#waterForm button:focus-visible {
     background-position: center -30rem;
   }
 
-
-
-
-
   /* HERO-OMRÅDET */
+
   .hero {
     display: flex;
     flex-direction: column;
@@ -883,12 +811,8 @@ form#waterForm button:focus-visible {
     margin: 1rem auto 0;
   }
 
-
-
-
-
-
   /* STATISTIKKORT */
+
   .stats-cards {
     position: relative;
     top: auto;
@@ -908,14 +832,10 @@ form#waterForm button:focus-visible {
     font-size: 0.9rem;
   }
 
-
-
-
-
   /* KARTA OCH GRAFER */
+
   .map {
     position: relative;
-    /* top: -15rem; */
     margin-top: 2rem;
     left: 50%;
     transform: translate(-50%);
@@ -926,10 +846,11 @@ form#waterForm button:focus-visible {
     border-radius: 0;
   }
 
-  .line-chart-section {
-    position: relative;
-    /* top: -15rem; */
-    margin-top: 2rem;
+  .map-display {
+    position: absolute;
+    top: 22rem;
+    left: 4%;
+    height: 5px;
   }
 
   .line-chart {
@@ -938,7 +859,6 @@ form#waterForm button:focus-visible {
     padding: 4rem 1rem;
   }
 
- 
   .line-display {
     width: 100%;
     max-width: 600px;
@@ -953,41 +873,27 @@ form#waterForm button:focus-visible {
   }
 
   .map-section h2,
-  .line-chart-section h2,
-  .text-section h2 {
+  .line-chart-section h2 {
     font-size: 1.4rem;
   }
 
   .map-section p,
-  .line-chart-section p,
-  .text-section p {
+  .line-chart-section p {
     font-size: 0.95rem;
   }
 
-  .map-display {
-    position: absolute;
-    top: 22rem;
-    left: 4%;
-    height: 5px;
-  }
-
-
-
-
-
 /* FORMULÄR */
+
  .form-container {
     width: 90%;        
     max-width: 640px;  
     padding: 15px;    
-    box-sizing: border-box;
   }
 
   .pie-chart {
     width: 100%;
     max-width: 100%;
     height: auto;
-    box-sizing: border-box;
     overflow: hidden;
   }
 
@@ -1004,14 +910,8 @@ form#waterForm button:focus-visible {
     padding: 8px 12px;
   }
 
-
-
-
-
-
-
-
   /* INFO-KORT */
+
   .card-container {
     flex-direction: column;
     flex-wrap: wrap;
@@ -1024,27 +924,15 @@ form#waterForm button:focus-visible {
     height: auto;
   }
 
-  .info-card:nth-child(2) .wash-info {
-    height: auto;
-    padding: 7vw;
-    align-items: center;
-  }
-
-  .info-card:nth-child(3) h1 {
-    display: none;
-  }
-
+  .info-card:nth-child(2) .wash-info,
   .info-card:nth-child(3) .gg6 {
     height: auto;
     padding: 7vw;
     align-items: center;
   }
 
-
-
-
-
   /* IKONLISTA */
+
   .icon-row {
     gap: 4rem;
     margin: 2rem;
